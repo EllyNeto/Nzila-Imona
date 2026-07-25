@@ -1,7 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    localStorage.setItem("loggedIn", "true");
+    router.push("/dashboard");
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans text-zinc-900">
 
@@ -20,7 +31,7 @@ export default function LoginPage() {
             <p className="text-sm text-zinc-500 mt-2">Acesse sua conta para gerenciar as atividades de desminagem.</p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest text-emerald-900 mb-2">
                 E-mail/USERNAME

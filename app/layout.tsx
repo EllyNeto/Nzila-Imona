@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nzila Imona | Protegendo Vidas e Restaurando o Futuro",
-  description: "Organização dedicada à remoção de minas terrestres e segurança humana em Angola.",
+  title: "Nzila Imona | Desminagem Autónoma & Tecnologia Geoespacial",
+  description: "Robótica de deteção e mapeamento digital para a libertação segura e a reabilitação do solo em Angola.",
 };
 
 export default function RootLayout({

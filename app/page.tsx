@@ -1,219 +1,539 @@
 import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/Header";
+import Reveal from "@/components/Reveal";
+import Counter from "@/components/Counter";
+import PillButton from "@/components/PillButton";
+import {
+  ShieldCheck,
+  Radar,
+  Satellite,
+  Gauge,
+  Target,
+  FileCheck,
+  Building2,
+  Handshake,
+  Users,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Calendar,
+  Quote,
+} from "lucide-react";
+
+const capabilities = [
+  {
+    icon: ShieldCheck,
+    title: "Risco Humano Zero",
+    desc: "Rovers autónomos substituem o sapador na fase crítica de deteção, eliminando a exposição humana direta a minas e engenhos não deflagrados.",
+    tone: "light" as const,
+  },
+  {
+    icon: Radar,
+    title: "Deteção Multissensores",
+    desc: "Radar de penetração no solo (GPR) combinado com sensores magnéticos identificam metais, ligas e anomalias de densidade em profundidade.",
+    tone: "lime" as const,
+  },
+  {
+    icon: Target,
+    title: "Mapeamento Digital em Nuvem",
+    desc: "Geração instantânea de mapas de calor 3D com coordenadas exatas das ameaças detetadas, acessíveis em plataforma cloud.",
+    tone: "dark" as const,
+  },
+  {
+    icon: Satellite,
+    title: "Navegação de Precisão",
+    desc: "GPS RTK garante varredura exata em solos irregulares e vegetação leve, com margem de erro inferior a 5 centímetros.",
+    tone: "light" as const,
+  },
+];
+
+const valueProps: {
+  icon: typeof ShieldCheck;
+  label: string;
+  stat?: string;
+  value?: number;
+  prefix?: string;
+  suffix?: string;
+}[] = [
+  { icon: ShieldCheck, stat: "Zero", label: "Risco Humano na Deteção" },
+  { icon: Gauge, value: 10, suffix: "x", label: "Mais Rápido que o Método Manual" },
+  { icon: Target, prefix: "< ", value: 5, suffix: "cm", label: "Precisão Geoespacial" },
+  { icon: FileCheck, value: 100, suffix: "%", label: "Certificação Digital Auditável" },
+];
+
+const comparison = [
+  {
+    criterio: "Segurança do Sapador",
+    manual: "Alto risco humano",
+    drones: "Sem risco humano",
+    nzila: "Risco humano zero",
+  },
+  {
+    criterio: "Deteção Sub-superficial",
+    manual: "Deteção profunda",
+    drones: "Apenas superficial",
+    nzila: "Penetração profunda (GPR)",
+  },
+  {
+    criterio: "Rendimento Diário",
+    manual: "Dezenas de m²/dia",
+    drones: "Rápido (visão aérea)",
+    nzila: "Hectares por dia",
+  },
+  {
+    criterio: "Mapeamento Digital",
+    manual: "Registos manuais",
+    drones: "Relatório fotográfico",
+    nzila: "Plataforma cloud & mapa 3D",
+  },
+];
+
+const roadmap = [
+  {
+    period: "Q1 – Q2 2026",
+    desc: "Testes de campo dos rovers em campos de ensaio nas províncias do Moxico e Cuando Cubango.",
+  },
+  {
+    period: "Q3 2026",
+    desc: "Acreditação técnica junto do INAD e parcerias operacionais com ONGs internacionais.",
+  },
+  {
+    period: "Q4 2026",
+    desc: "Primeiras operações comerciais de varredura e certificação para projetos agrícolas.",
+  },
+  {
+    period: "2027+",
+    desc: "Escala da frota robótica e expansão para redes de infraestruturas rodoviárias e ferroviárias.",
+  },
+];
+
+const team = [
+  {
+    name: "Eliandra Neto",
+    role: "Liderança estratégica, gestão de operações de impacto e articulação de parcerias institucionais.",
+  },
+  {
+    name: "Liedson Habacuc",
+    role: "Desenvolvimento de software de robótica, fusão de dados de sensores e arquitetura da plataforma SaaS.",
+  },
+  {
+    name: "Alexandre Tambo",
+    role: "Engenharia de hardware robótico, integração de radares GPR e eletrónica de varredura terrestre.",
+  },
+];
+
+const toneClasses = {
+  light: "bg-white text-emerald-950",
+  lime: "bg-lime-300 text-emerald-950",
+  dark: "bg-emerald-950 text-white",
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-white font-sans text-zinc-900">
+    <div className="flex min-h-screen flex-col bg-stone-100 font-sans text-emerald-950">
       <Header />
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[80vh] w-full overflow-hidden">
+        <section className="relative min-h-[90vh] overflow-hidden bg-emerald-950">
           <Image
-            src="https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop"
-            alt="Angola landscape"
+            src="/fundo.png"
+            alt="Terreno mapeado em Angola"
             fill
             sizes="100vw"
-            className="object-cover brightness-50"
-            preload
-            loading="eager"
-            fetchPriority="high"
+            className="object-cover"
+            priority
           />
-          <div className="absolute inset-0 flex items-center">
-            <div className="container mx-auto px-6 lg:px-12">
-              <div className="max-w-2xl bg-emerald-900/90 p-6 sm:p-8 lg:p-12 text-white">
-                <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold leading-tight lg:text-5xl">
-                  Limpando caminhos, protegendo vidas e restaurando o futuro.
-                </h1>
-                <p className="mb-6 sm:mb-8 text-base sm:text-lg text-emerald-50/90 lg:text-xl leading-relaxed">
-                  Trabalhamos incansavelmente para remover perigos ocultos e devolver a segurança às comunidades afetadas por conflitos.
-                </p>
-                <button className="w-full sm:w-auto bg-emerald-500 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white hover:bg-emerald-400 transition-all">
-                  Saiba Mais
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/85 to-emerald-950/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent" />
 
-        {/* Mission Statement */}
-        <section className="bg-emerald-900 py-20 text-center text-white">
-          <div className="container mx-auto px-6 max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-light italic leading-relaxed">
-              "Nossa missão é proteger vidas e restaurar os meios de subsistência daqueles afetados por conflitos, criando um mundo onde as pessoas possam caminhar sem medo."
-            </h2>
-          </div>
-        </section>
-
-        {/* What We Do */}
-        <section className="py-24 bg-zinc-50">
-          <div className="container mx-auto px-6 lg:px-12">
-            <div className="mb-16">
-              <h2 className="text-4xl font-bold text-emerald-900">O Que Fazemos</h2>
-              <div className="mt-4 h-1 w-24 bg-emerald-500"></div>
-            </div>
-            
-            <div className="grid gap-12 md:grid-cols-3">
-              {[
-                {
-                  title: "Remoção de Explosivos",
-                  desc: "Limpamos minas terrestres e outros explosivos para tornar a terra segura, permitindo que as comunidades regressem a casa.",
-                  img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop"
-                },
-                {
-                  title: "Segurança de Armas",
-                  desc: "Recolhemos e destruímos armas e munições deixadas para trás após conflitos que poderiam cair em mãos erradas.",
-                  img: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop"
-                },
-                {
-                  title: "Educação de Risco",
-                  desc: "Oferecemos educação sobre riscos em zonas de conflito, ensinando as comunidades a reconhecer perigos e a manterem-se seguras.",
-                  img: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop"
-                }
-              ].map((item, i) => (
-                <div key={i} className="group cursor-pointer">
-                  <div className="relative mb-6 h-64 w-full overflow-hidden bg-zinc-200">
-                    <Image
-                      src={item.img}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <h3 className="mb-4 text-2xl font-bold text-emerald-900 group-hover:text-emerald-700 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-zinc-600 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Impact Section */}
-        <section className="relative min-h-[60vh] py-20 w-full flex items-center">
-          <Image
-            src="https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop"
-            alt="Angola landscape"
-            fill
-            sizes="100vw"
-            className="object-cover brightness-50"
-          />
-          <div className="relative z-10 w-full text-center">
-            <div className="container mx-auto px-6">
-              <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl leading-tight">Trabalhamos em todo o país</h2>
-              <p className="mx-auto max-w-2xl text-base sm:text-lg text-emerald-50/90 lg:text-xl">
-                A Nzila Imona está presente em diversas províncias, transformando áreas de risco em campos de esperança.
+          <div className="container relative mx-auto flex min-h-[90vh] items-center px-6 py-24 lg:px-12">
+            <Reveal className="max-w-xl">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-lime-300 backdrop-blur">
+                <ShieldCheck className="h-4 w-4" strokeWidth={2.5} />
+                <Counter value={90} suffix="%" /> menos risco humano
               </p>
-              <button className="mt-10 border-2 border-white px-8 py-3 text-sm font-bold uppercase tracking-widest text-white hover:bg-white hover:text-emerald-900 transition-all w-full sm:w-auto">
-                Ver Onde Atuamos
-              </button>
-            </div>
+              <h1 className="mb-6 text-4xl font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Tecnologia que <span className="text-lime-400">liberta</span> o solo
+                de Angola
+              </h1>
+              <p className="mb-8 max-w-lg text-base leading-relaxed text-emerald-100/80 sm:text-lg">
+                Robótica de deteção e mapeamento digital para a libertação segura e a
+                reabilitação do solo — substituindo o contacto humano direto pela
+                precisão dos sensores.
+              </p>
+              <div className="flex flex-wrap items-center gap-6">
+                <PillButton href="#solucao" variant="light">
+                  Conhecer a Solução
+                </PillButton>
+                <a
+                  href="#contacto"
+                  className="flex items-center gap-3 text-sm font-semibold text-white hover:text-lime-300"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  <span className="flex flex-col leading-tight">
+                    <span className="text-xs text-emerald-100/60">Fale connosco</span>
+                    contacto@nzilaimona.ao
+                  </span>
+                </a>
+              </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* How To Help */}
+        {/* The Challenge */}
         <section className="py-24">
           <div className="container mx-auto px-6 lg:px-12">
-            <div className="mb-16">
-              <h2 className="text-4xl font-bold text-emerald-900">Como Ajudar</h2>
-              <div className="mt-4 h-1 w-24 bg-emerald-500"></div>
+            <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+              <Reveal>
+                <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                  O Desafio em Angola
+                </p>
+                <h2 className="mb-6 text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                  O gargalo do terreno contaminado
+                </h2>
+                <p className="text-base leading-relaxed text-zinc-600 sm:text-lg">
+                  Extensas áreas agrícolas, de infraestrutura e habitação continuam
+                  bloqueadas pela ameaça de minas terrestres e engenhos não deflagrados
+                  (UXO). A desminagem manual tradicional é lenta, perigosa e sujeita a
+                  elevado erro humano — travando o desenvolvimento económico do país.
+                </p>
+              </Reveal>
+              <Reveal delay={150}>
+                <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                  Público-Alvo &amp; Parceiros Estratégicos
+                </p>
+                <ul className="space-y-3">
+                  {[
+                    "Agências Nacionais de Desminagem (CNAD / INAD)",
+                    "ONGs Internacionais (HALO Trust, NPA, MAG)",
+                    "Forças Armadas",
+                    "Empresas Agrícolas e Construtoras de Infraestruturas",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-3 rounded-2xl bg-white p-4 text-sm font-medium text-zinc-700 shadow-sm"
+                    >
+                      <Building2 className="h-5 w-5 shrink-0 text-emerald-600" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* The Solution */}
+        <section id="solucao" className="scroll-mt-20 py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal className="mb-16 grid gap-8 lg:grid-cols-2 lg:items-end">
+              <div>
+                <p className="mb-3 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                  <span className="text-lime-500">✳</span> Tecnologia Protegida
+                </p>
+                <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                  A Solução: Desminagem Autónoma
+                </h2>
+              </div>
+              <p className="text-zinc-500 lg:text-right">
+                Substituímos o contacto humano direto na fase crítica de deteção por
+                rovers autónomos equipados com múltiplos sensores de subsolo.
+              </p>
+            </Reveal>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {capabilities.map(({ icon: Icon, title, desc, tone }, i) => (
+                <Reveal key={title} delay={i * 100} className="h-full">
+                  <div
+                    className={`h-full rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 ${toneClasses[tone]}`}
+                  >
+                    <div
+                      className={`mb-6 flex h-12 w-12 items-center justify-center rounded-full ${
+                        tone === "dark" ? "bg-white/10" : "bg-emerald-950/10"
+                      }`}
+                    >
+                      <Icon className="h-6 w-6" strokeWidth={1.75} />
+                    </div>
+                    <h3 className="mb-3 text-lg font-bold">{title}</h3>
+                    <p
+                      className={`text-sm leading-relaxed ${
+                        tone === "dark" ? "text-emerald-100/70" : "text-zinc-600"
+                      }`}
+                    >
+                      {desc}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              {[
-                { title: "Parceria Corporativa", icon: "🤝" },
-                { title: "Seja um Voluntário", icon: "🙋" }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center border border-emerald-100 bg-white p-8 sm:p-12 text-center transition-shadow hover:shadow-xl">
-                  <div className="mb-6 text-5xl">{item.icon}</div>
-                  <h3 className="mb-4 text-xl font-bold text-emerald-900">{item.title}</h3>
-                  <p className="mb-8 text-zinc-600">Sua ajuda é fundamental para que possamos continuar nosso trabalho vital.</p>
-                  <a href="#" className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-800">
-                    Saiba Mais →
-                  </a>
+            <Reveal delay={200} className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
+              <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                Componentes &amp; Módulos Robóticos
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["GPS", "L293D", "Landmine Detector", "NodeMCU ESP8266"].map((c) => (
+                  <span
+                    key={c}
+                    className="rounded-full bg-stone-100 px-4 py-2 font-mono text-sm font-semibold text-emerald-900 transition-transform hover:-translate-y-0.5"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Who We Are */}
+        <section id="quem-somos" className="scroll-mt-20 py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+              <Reveal className="relative">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl sm:aspect-square">
+                  <Image
+                    src="/fundo2.jpeg"
+                    alt="Equipa Nzila Imona em campo"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </div>
+                <div className="absolute -bottom-6 -right-4 rounded-2xl bg-lime-300 p-6 text-emerald-950 shadow-xl sm:right-6">
+                  <p className="font-mono text-3xl font-bold tabular-nums leading-none">
+                    <Counter value={50000} suffix="+" />
+                  </p>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-widest">
+                    Hectares na Meta 2026–27
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={150}>
+                <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                  Quem Somos
+                </p>
+                <h2 className="mb-6 text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                  Solução completa para a libertação do solo
+                </h2>
+                <p className="mb-8 text-base leading-relaxed text-zinc-600 sm:text-lg">
+                  Ao combinar robótica avançada e radar de penetração, a Nzila Imona
+                  reduz significativamente o custo e o tempo necessários para declarar
+                  terras como seguras — acelerando o caminho de Angola para ficar livre
+                  de minas.
+                </p>
+                <div className="flex flex-wrap items-center gap-8">
+                  <PillButton href="#equipa">Conhecer a Equipa</PillButton>
+                  <div className="flex items-center gap-3">
+                    <Quote className="h-8 w-8 shrink-0 text-lime-500" strokeWidth={1.5} />
+                    <div className="text-sm">
+                      <p className="font-bold text-emerald-950">Eliandra Neto</p>
+                      <p className="text-zinc-500">Liderança Estratégica</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Value Proposition */}
+        <section className="py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal className="mb-16 max-w-2xl">
+              <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                Proposta de Valor Estratégica
+              </p>
+              <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                Impacto mensurável em cada operação
+              </h2>
+            </Reveal>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {valueProps.map(({ icon: Icon, stat, value, prefix, suffix, label }, i) => (
+                <Reveal key={label} delay={i * 100}>
+                  <div className="h-full rounded-3xl bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-950/5">
+                      <Icon className="h-6 w-6 text-emerald-700" strokeWidth={1.75} />
+                    </div>
+                    <p className="mb-2 font-mono text-3xl font-bold tabular-nums text-emerald-950 sm:text-4xl">
+                      {stat ?? <Counter value={value!} prefix={prefix} suffix={suffix} />}
+                    </p>
+                    <p className="text-sm text-zinc-500">{label}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Latest News */}
-        <section className="bg-zinc-50 py-24">
+        {/* Comparative Analysis */}
+        <section className="py-24">
           <div className="container mx-auto px-6 lg:px-12">
-            <div className="flex items-end justify-between mb-16">
-              <div>
-                <h2 className="text-4xl font-bold text-emerald-900">Últimas Notícias</h2>
-                <div className="mt-4 h-1 w-24 bg-emerald-500"></div>
-              </div>
-              <a href="#" className="hidden md:block font-bold text-emerald-600 hover:underline uppercase tracking-wider text-sm">
-                Ver todas as notícias
-              </a>
-            </div>
+            <Reveal className="mb-16 max-w-2xl">
+              <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                Análise Comparativa
+              </p>
+              <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                Como nos comparamos
+              </h2>
+            </Reveal>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                { 
-                  id: 1, 
-                  provincia: "Luanda", 
-                  titulo: "Angola acelera meta para ser livre de minas até 2027", 
-                  desc: "Governo anuncia investimento de $240 milhões para reforçar operações de desminagem em todo o território nacional.",
-                  img: "https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop",
-                  data: "09 Julho 2026"
-                },
-                { 
-                  id: 2, 
-                  provincia: "Cuando Cubango", 
-                  titulo: "Desminagem avança na bacia do Okavango para proteger biodiversidade", 
-                  desc: "Projeto de $60 milhões garante segurança em áreas de conservação, promovendo o turismo sustentável na região.",
-                  img: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop",
-                  data: "08 Julho 2026"
-                },
-                { 
-                  id: 3, 
-                  provincia: "Lunda Sul", 
-                  titulo: "Inovação tecnológica: o uso de ratos farejadores e drones", 
-                  desc: "Operadores internacionais implementam novas metodologias para acelerar a identificação de campos minados.",
-                  img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop",
-                  data: "05 Julho 2026"
-                },
-                { 
-                  id: 4, 
-                  provincia: "Benguela", 
-                  titulo: "Contaminação por minas cai para nível histórico em 9 províncias", 
-                  desc: "Relatório de 2024 aponta progresso significativo, com área contaminada reduzida para menos de 60 km².",
-                  img: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop",
-                  data: "01 Julho 2026"
-                }
-              ].map((item) => (
-                <div key={item.id} className="flex flex-col bg-white overflow-hidden group cursor-pointer shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative h-48 w-full overflow-hidden">
-                    <Image
-                      src={item.img}
-                      alt={item.titulo}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+            <Reveal delay={150} className="overflow-hidden overflow-x-auto rounded-3xl bg-white shadow-sm">
+              <table className="w-full min-w-[640px] text-left text-sm">
+                <thead>
+                  <tr className="bg-emerald-950 text-xs font-bold uppercase tracking-wider text-white">
+                    <th className="p-5">Critério</th>
+                    <th className="p-5">Desminagem Manual</th>
+                    <th className="p-5">Drones Aéreos</th>
+                    <th className="p-5 text-lime-300">Nzila Imona</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparison.map((row) => (
+                    <tr key={row.criterio} className="border-b border-stone-100 last:border-0">
+                      <td className="p-5 font-bold text-emerald-950">{row.criterio}</td>
+                      <td className="p-5 text-zinc-500">{row.manual}</td>
+                      <td className="p-5 text-zinc-500">{row.drones}</td>
+                      <td className="p-5 font-semibold text-emerald-700">
+                        <span className="flex items-center gap-2">
+                          <CheckCircle2 className="h-4 w-4 shrink-0" />
+                          {row.nzila}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Business Model */}
+        <section className="py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal className="mb-16 max-w-2xl">
+              <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                Modelo de Negócio
+              </p>
+              <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                Sustentabilidade &amp; Escala
+              </h2>
+            </Reveal>
+            <div className="grid gap-6 md:grid-cols-2">
+              <Reveal>
+                <div className="h-full rounded-3xl bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-950/5">
+                    <Handshake className="h-6 w-6 text-emerald-700" strokeWidth={1.75} />
                   </div>
-                  <div className="p-6">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-widest text-emerald-600">{item.provincia}</p>
-                    <h4 className="mb-4 font-bold text-emerald-900 line-clamp-2 group-hover:text-emerald-700">
-                      {item.titulo}
-                    </h4>
-                    <p className="mb-4 text-sm text-zinc-600 line-clamp-3">
-                      {item.desc}
-                    </p>
-                    <p className="text-xs text-zinc-400">{item.data}</p>
-                  </div>
+                  <h3 className="mb-3 text-xl font-bold text-emerald-950">
+                    Varredura por Hectare (B2G / B2B)
+                  </h3>
+                  <p className="leading-relaxed text-zinc-600">
+                    Contratos de prestação de serviços de pré-mapeamento e localização
+                    de ameaças para ONGs de desminagem, Governo e concessionárias de
+                    infraestruturas.
+                  </p>
                 </div>
+              </Reveal>
+              <Reveal delay={150}>
+                <div className="h-full rounded-3xl bg-emerald-950 p-8 text-white transition-transform duration-300 hover:-translate-y-1">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-white/10">
+                    <FileCheck className="h-6 w-6 text-lime-300" strokeWidth={1.75} />
+                  </div>
+                  <h3 className="mb-3 text-xl font-bold">
+                    Licenciamento Hardware &amp; SaaS
+                  </h3>
+                  <p className="leading-relaxed text-emerald-100/70">
+                    Aluguer/venda de unidades robóticas com subscrição recorrente da
+                    plataforma de software para análise magnética e emissão de certidões
+                    de solo limpo.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Roadmap */}
+        <section className="py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal className="mb-16 max-w-2xl">
+              <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                Roadmap de Implementação
+              </p>
+              <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                Próximos passos
+              </h2>
+            </Reveal>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {roadmap.map((r, i) => (
+                <Reveal key={r.period} delay={i * 100}>
+                  <div className="h-full rounded-3xl bg-white p-6 shadow-sm">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-lime-300">
+                      <Calendar className="h-4 w-4 text-emerald-950" />
+                    </div>
+                    <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                      {r.period}
+                    </p>
+                    <p className="text-sm leading-relaxed text-zinc-600">{r.desc}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Team */}
+        <section id="equipa" className="scroll-mt-20 py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal className="mb-16 max-w-2xl">
+              <p className="mb-3 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+                <Users className="h-4 w-4" />
+                Equipa &amp; Liderança Técnica
+              </p>
+              <h2 className="text-3xl font-bold tracking-tight text-emerald-950 sm:text-4xl">
+                Quem torna isto possível
+              </h2>
+            </Reveal>
+            <div className="grid gap-6 md:grid-cols-3">
+              {team.map((member, i) => (
+                <Reveal key={member.name} delay={i * 100}>
+                  <div className="h-full rounded-3xl bg-white p-8 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-lime-300 text-lg font-bold text-emerald-950">
+                      {member.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join("")}
+                    </div>
+                    <h3 className="mb-2 text-lg font-bold text-emerald-950">{member.name}</h3>
+                    <p className="text-sm leading-relaxed text-zinc-600">{member.role}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA / Contact */}
+        <section id="contacto" className="scroll-mt-20 py-24">
+          <Reveal className="container mx-auto px-6 lg:px-12">
+            <div className="flex flex-col items-center gap-8 rounded-3xl bg-emerald-950 px-8 py-16 text-center text-white">
+              <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+                Acelere a desminagem em Angola connosco
+              </h2>
+              <p className="mx-auto max-w-xl text-emerald-100/70">
+                Procuramos parceiros institucionais, ONGs e investidores para acelerar a
+                tecnologia robótica e libertar solos agrícolas com segurança total.
+              </p>
+              <PillButton href="mailto:contacto@nzilaimona.ao" variant="light">
+                contacto@nzilaimona.ao
+              </PillButton>
+            </div>
+          </Reveal>
         </section>
       </main>
 
@@ -228,48 +548,47 @@ export default function Home() {
                   alt="Nzila Imona Logo"
                   width={32}
                   height={32}
-                  className="h-8 w-auto brightness-0 invert"
+                  style={{ width: "auto" }}
+                  className="h-8 brightness-0 invert"
                 />
               </div>
               <p className="max-w-md text-sm leading-relaxed mb-8">
-                Nzila Imona é uma organização dedicada à segurança humana e desenvolvimento comunitário. 
-                Removendo os perigos do passado para construir os caminhos do futuro.
+                Nzila Imona — Desminagem &amp; Tecnologia Geoespacial. Soluções
+                robóticas para a libertação e reabilitação do solo em Angola.
               </p>
-              <div className="flex gap-4">
-                {/* Social icons placeholders */}
-                <div className="h-8 w-8 rounded-full bg-emerald-900 hover:bg-emerald-700 transition-colors cursor-pointer flex items-center justify-center">f</div>
-                <div className="h-8 w-8 rounded-full bg-emerald-900 hover:bg-emerald-700 transition-colors cursor-pointer flex items-center justify-center">t</div>
-                <div className="h-8 w-8 rounded-full bg-emerald-900 hover:bg-emerald-700 transition-colors cursor-pointer flex items-center justify-center">i</div>
-              </div>
             </div>
-            
+
             <div>
-              <h5 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">Navegação</h5>
+              <h5 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">
+                Navegação
+              </h5>
               <ul className="space-y-4 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Sobre Nós</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Nosso Trabalho</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Onde Atuamos</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Transparência</a></li>
+                <li><a href="#solucao" className="hover:text-white transition-colors">A Solução</a></li>
+                <li><a href="#quem-somos" className="hover:text-white transition-colors">Quem Somos</a></li>
+                <li><a href="#equipa" className="hover:text-white transition-colors">Equipa</a></li>
+                <li><a href="#contacto" className="hover:text-white transition-colors">Contacto</a></li>
               </ul>
             </div>
 
             <div>
-              <h5 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">Contato</h5>
+              <h5 className="mb-6 text-sm font-bold uppercase tracking-widest text-white">
+                Contacto
+              </h5>
               <ul className="space-y-4 text-sm">
-                <li>Luanda, Angola</li>
-                <li>+244 9XX XXX XXX</li>
-                <li>contato@nzilaimona.org</li>
+                <li className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 shrink-0" />
+                  Luanda, Angola
+                </li>
+                <li className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 shrink-0" />
+                  contacto@nzilaimona.ao
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div className="mt-16 border-t border-emerald-900 pt-8 text-xs flex flex-col md:flex-row justify-between items-center gap-4">
             <p>© 2026 Nzila Imona. Todos os direitos reservados.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-white">Privacidade</a>
-              <a href="#" className="hover:text-white">Termos de Uso</a>
-              <a href="#" className="hover:text-white">Cookies</a>
-            </div>
           </div>
         </div>
       </footer>
